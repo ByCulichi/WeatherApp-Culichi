@@ -1,0 +1,13 @@
+body{
+    font-family: Arial, san-serif;
+    background-color: hsl(0, 0, 95%);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.weatherForm{
+
+}
