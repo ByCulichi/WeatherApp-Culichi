@@ -1,5 +1,9 @@
 # Weather App
 
+#Demo
+
+<img src="https://github.com/SoyCulichi/WeatherApp-Culichi/blob/main/Weatherapp.gif" width="250px">
+
 Simple client-side Weather App that fetches current weather from OpenWeatherMap and displays it in a small card.
 
 ## Features
