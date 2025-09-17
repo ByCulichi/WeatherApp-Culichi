@@ -1,30 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!doctype html>
+    <html lang="en">
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
-</head>
+    </head>
+    <body>
+    <main class="container">
+        <header>
+        <h1>Weather App</h1>
+        <p class="subtitle">Get current weather by city (OpenWeatherMap)</p>
+        </header>
 
-<body>
-
-
-    <form class="weatherForm">
-        <input type="text" name="cityInput" placeholder="Enter city" required>
+        <form class="weatherForm" aria-label="Get weather form">
+        <input
+            class="cityInput"
+            type="text"
+            name="city"
+            placeholder="Enter city (e.g. London)"
+            required
+            aria-label="City name"
+        />
         <button type="submit">Get Weather</button>
-    </form>
+        </form>
 
-    <div class="card" style="display: none;">
-    </div>
-    
-</body>
-</html>
+        <section class="card" aria-live="polite" style="display: none;"></section>
+    </main>
 
-<!--       
-<h1 class="cityName">LA</h1>
-        <p class="tempDisplay">90°F</p>
-        <p class="humidityDisplay">Humidity 75%</p>
-        <p class="descDisplay">Clear Skies</p>
-        <p class="weatherEmoji">☀️</p>
-        <p class="errorDisplay" style="color: red;">Please enter a city</p> -->
+    <script src="script.js"></script>
+    </body>
+    </html>
