@@ -1,6 +1,6 @@
 # Weather App
 
-#Demo
+# Demo
 
 <img src="https://github.com/SoyCulichi/WeatherApp-Culichi/blob/main/Weatherapp.gif" width="250px">
 
