@@ -1,11 +1,26 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <!-- ============================================================
+         Weather App - HTML Document Structure
+         ============================================================
+         
+         Este archivo define la estructura HTML semántica de la aplicación del clima.
+         Utiliza elementos semánticos modernos y mejores prácticas de accesibilidad.
+         
+         Características implementadas:
+         - HTML5 semántico con elementos apropiados
+         - Meta tags para responsividad y configuración
+         - Etiquetas ARIA para accesibilidad
+         - Estructura clara y organizad
+         
+         ============================================================ -->
+
     <!-- Meta tags para configuración básica y responsividad -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <!-- Título de la página -->
+    <!-- Título de la página que aparece en la pestaña del navegador -->
     <title>Weather App</title>
 
     <!-- Enlace a la hoja de estilos principal -->
@@ -13,18 +28,21 @@
 </head>
 <body>
     <!-- Contenedor principal de la aplicación -->
+    <!-- Uso de <main> para indicar el contenido principal de la página -->
     <main class="container">
-        <!-- Encabezado de la aplicación -->
+        <!-- Encabezado de la aplicación con título y descripción -->
         <header>
             <h1>Weather App</h1>
             <p class="subtitle">
-                <!-- Breve descripción de la funcionalidad -->
+                <!-- Breve descripción de la funcionalidad para usuarios -->
                 Get current weather by city (OpenWeatherMap)
             </p>
         </header>
 
         <!-- Formulario para ingresar el nombre de la ciudad -->
+        <!-- aria-label mejora la accesibilidad para lectores de pantalla -->
         <form class="weatherForm" aria-label="Get weather form">
+            <!-- Campo de entrada de texto para el nombre de la ciudad -->
             <input
                 class="cityInput"
                 type="text"
@@ -33,6 +51,7 @@
                 required
                 aria-label="City name"
             />
+            <!-- Botón para enviar el formulario y obtener el clima -->
             <button type="submit">
                 Get Weather
             </button>
@@ -40,12 +59,13 @@
 
         <!-- Sección para mostrar la tarjeta con el clima -->
         <!-- aria-live="polite" permite que lectores de pantalla anuncien cambios -->
+        <!-- style="display: none;" oculta la tarjeta inicialmente -->
         <section class="card" aria-live="polite" style="display: none;">
-            <!-- El contenido del clima se insertará dinámicamente aquí -->
+            <!-- El contenido del clima se insertará dinámicamente aquí mediante JavaScript -->
         </section>
     </main>
 
-    <!-- Script principal de la aplicación -->
+    <!-- Script principal de la aplicación cargado al final para mejor rendimiento -->
     <script src="script.js"></script>
 </body>
 </html>

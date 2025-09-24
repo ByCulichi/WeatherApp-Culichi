@@ -1,27 +1,55 @@
 /* ============================================================
+   Weather App - Stylesheet (style.css)
+   ============================================================
+   
+   Este archivo contiene todos los estilos para la aplicación del clima.
+   Utiliza CSS moderno con variables personalizadas, flexbox y diseño responsivo.
+   
+   Estructura del archivo:
+   1. Variables CSS globales (colores y temas)
+   2. Reset y configuración base del documento
+   3. Contenedor principal y layout
+   4. Estilos del encabezado
+   5. Formulario de búsqueda
+   6. Tarjeta de información del clima
+   7. Responsive design para móviles
+   
+   Características principales:
+   - Variables CSS para consistencia en colores
+   - Gradientes para efectos visuales atractivos
+   - Flexbox para layouts flexibles
+   - Media queries para dispositivos móviles
+   - Transiciones suaves para interactividad
+   
+   ============================================================ */
+
+/* ============================================================
     Variables globales para colores y estilos base
    ============================================================ */
 :root {
-    --bg: hsl(0 0% 95%);
-    --primary: hsl(200 70% 50%);
-    --card-start: hsl(200 70% 90%);
-    --card-end: hsl(71 71% 80%);
+    /* Colores principales de la aplicación usando HSL para mejor control */
+    --bg: hsl(0 0% 95%);           /* Fondo gris claro para toda la página */
+    --primary: hsl(200 70% 50%);   /* Azul principal para botones y elementos interactivos */
+    --card-start: hsl(200 70% 90%);/* Color inicial del gradiente de la tarjeta (azul claro) */
+    --card-end: hsl(71 71% 80%);   /* Color final del gradiente (amarillo verdoso) */
 }
 
 /* ============================================================
     Reset y configuración base
    ============================================================ */
 * {
+    /* Modelo de caja uniforme: incluye padding y border en el width total */
     box-sizing: border-box;
 }
 
 body {
+    /* Fuente del sistema para mejor rendimiento y consistencia */
     font-family: Arial, system-ui, sans-serif;
-    background-color: var(--bg);
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    padding: 24px;
+    background-color: var(--bg);  /* Usa la variable CSS definida arriba */
+    margin: 0;                    /* Elimina márgenes por defecto del navegador */
+    display: flex;                /* Flexbox para centrar contenido */
+    justify-content: center;      /* Centra horizontalmente */
+    padding: 24px;               /* Espaciado interno uniforme */
 }
 
 /* ============================================================
@@ -141,15 +169,23 @@ button[type="submit"]:hover {
 }
 
 /* ============================================================
-  git   Responsividad para dispositivos móviles
+    Responsividad para dispositivos móviles
    ============================================================ */
+
+/* Media query para pantallas pequeñas (móviles) */
+/* Punto de ruptura: 480px - típico para teléfonos en modo vertical */
 @media (max-width: 480px) {
+    /* En móviles, el input ocupa todo el ancho disponible */
     .cityInput {
         width: 100%;
     }
+    
+    /* Reduce el padding interno de la tarjeta para ahorrar espacio */
     .card {
         padding: 18px;
     }
+    
+    /* Reduce el tamaño del emoji del clima para pantallas pequeñas */
     .weatherEmoji {
         font-size: 4.2rem;
     }
