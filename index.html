@@ -25,17 +25,22 @@
 
         <!-- Formulario para ingresar el nombre de la ciudad -->
         <form class="weatherForm" aria-label="Get weather form">
-            <input
-                class="cityInput"
-                type="text"
-                name="city"
-                placeholder="Enter city (e.g. London)"
-                required
-                aria-label="City name"
-            />
-            <button type="submit">
-                Get Weather
-            </button>
+            <div class="input-group">
+                <input
+                    class="cityInput"
+                    type="text"
+                    name="city"
+                    placeholder="Enter city (e.g. London)"
+                    required
+                    aria-label="City name"
+                />
+                <button type="submit">
+                    Get Weather
+                </button>
+                <button type="button" class="temp-toggle" onclick="toggleTemperatureUnit()">
+                    °C
+                </button>
+            </div>
         </form>
 
         <!-- Sección para mostrar la tarjeta con el clima -->

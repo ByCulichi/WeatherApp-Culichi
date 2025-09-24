@@ -13,6 +13,9 @@ const card = document.querySelector('.card');
 // Clave de API para OpenWeatherMap (debes reemplazarla por la tuya)
 const apiKey = 'b8fe6805b74a15b5786467b2f27ca0bf';
 
+// Estado global para unidades de temperatura
+let isCelsius = false;
+
 // ------------------------------------------------------------
 // Función de depuración para mostrar mensajes en consola
 function debugLog(...args) {
@@ -53,7 +56,8 @@ weatherForm.addEventListener('submit', async (event) => {
 // ------------------------------------------------------------
 // Función para obtener datos del clima desde la API
 async function getWeather(city) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=imperial`;
+    const units = isCelsius ? 'metric' : 'imperial';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=${units}`;
     debugLog('Fetching:', url);
 
     let response;
@@ -96,24 +100,30 @@ async function getWeather(city) {
 // ------------------------------------------------------------
 // Función para mostrar la información del clima en la tarjeta
 function displayWeatherInfo(data) {
-    // Desestructura los datos principales
+    // Desestructura los datos principales incluyendo datos adicionales
     const {
         name: cityName,
-        main: { temp, humidity } = {},
-        weather = []
+        main: { temp, humidity, feels_like, temp_min, temp_max, pressure } = {},
+        weather = [],
+        wind: { speed } = {}
     } = data;
 
     const weatherObj = weather[0] || {};
     const weatherId = weatherObj.id;
     const description = weatherObj.description || '';
+    const tempUnit = isCelsius ? '°C' : '°F';
 
     // Limpia y muestra la tarjeta
     card.innerHTML = '';
     card.style.display = 'flex';
 
-    // Elementos de la tarjeta
+    // Panel principal con temperatura
+    const mainPanel = document.createElement('div');
+    mainPanel.className = 'main-panel';
+
     const cityEl = document.createElement('h2');
     cityEl.textContent = cityName || 'Unknown';
+    cityEl.className = 'city-name';
 
     const emojiEl = document.createElement('p');
     emojiEl.className = 'weatherEmoji';
@@ -121,22 +131,67 @@ function displayWeatherInfo(data) {
 
     const tempEl = document.createElement('p');
     tempEl.className = 'temp';
-    tempEl.textContent = (typeof temp === 'number') ? `${temp.toFixed(1)}°F` : 'N/A';
-
-    const humidityEl = document.createElement('p');
-    humidityEl.className = 'humidity';
-    humidityEl.textContent = (typeof humidity === 'number') ? `Humidity: ${humidity}%` : '';
+    tempEl.textContent = (typeof temp === 'number') ? `${temp.toFixed(1)}${tempUnit}` : 'N/A';
 
     const descEl = document.createElement('p');
     descEl.className = 'desc';
     descEl.textContent = description;
 
-    // Añade los elementos a la tarjeta
-    card.appendChild(cityEl);
-    card.appendChild(emojiEl);
-    card.appendChild(tempEl);
-    if (humidityEl.textContent) card.appendChild(humidityEl);
-    if (description) card.appendChild(descEl);
+    // Añade elementos al panel principal
+    mainPanel.appendChild(cityEl);
+    mainPanel.appendChild(emojiEl);
+    mainPanel.appendChild(tempEl);
+    if (description) mainPanel.appendChild(descEl);
+
+    // Panel secundario con información adicional
+    const secondaryPanel = document.createElement('div');
+    secondaryPanel.className = 'secondary-panel';
+
+    // Crea elementos de información secundaria
+    const weatherDetails = [
+        { label: 'Min', value: typeof temp_min === 'number' ? `${temp_min.toFixed(1)}${tempUnit}` : 'N/A', icon: '🌡️' },
+        { label: 'Max', value: typeof temp_max === 'number' ? `${temp_max.toFixed(1)}${tempUnit}` : 'N/A', icon: '🌡️' },
+        { label: 'Feels like', value: typeof feels_like === 'number' ? `${feels_like.toFixed(1)}${tempUnit}` : 'N/A', icon: '🌡️' },
+        { label: 'Pressure', value: typeof pressure === 'number' ? `${pressure} hPa` : 'N/A', icon: '🔽' },
+        { label: 'Humidity', value: typeof humidity === 'number' ? `${humidity}%` : 'N/A', icon: '💧' },
+        { label: 'Wind', value: typeof speed === 'number' ? `${speed} ${isCelsius ? 'm/s' : 'mph'}` : 'N/A', icon: '💨' }
+    ];
+
+    weatherDetails.forEach(detail => {
+        const detailEl = document.createElement('div');
+        detailEl.className = 'weather-detail';
+        
+        detailEl.innerHTML = `
+            <span class="detail-icon">${detail.icon}</span>
+            <span class="detail-label">${detail.label}</span>
+            <span class="detail-value">${detail.value}</span>
+        `;
+        
+        secondaryPanel.appendChild(detailEl);
+    });
+
+    // Añade los paneles a la tarjeta
+    card.appendChild(mainPanel);
+    card.appendChild(secondaryPanel);
+}
+
+// ------------------------------------------------------------
+// Función para alternar entre Celsius y Fahrenheit
+function toggleTemperatureUnit() {
+    isCelsius = !isCelsius;
+    const toggleBtn = document.querySelector('.temp-toggle');
+    if (toggleBtn) {
+        toggleBtn.textContent = isCelsius ? '°F' : '°C';
+    }
+    
+    // Si hay datos mostrados, refrescar con las nuevas unidades
+    const cityInput = document.querySelector('.cityInput');
+    if (cityInput && cityInput.value.trim()) {
+        const city = cityInput.value.trim();
+        getWeather(city).then(displayWeatherInfo).catch(err => {
+            displayError(err.message);
+        });
+    }
 }
 
 // ------------------------------------------------------------

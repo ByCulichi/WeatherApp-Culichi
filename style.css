@@ -4,8 +4,13 @@
 :root {
     --bg: hsl(0 0% 95%);
     --primary: hsl(200 70% 50%);
-    --card-start: hsl(200 70% 90%);
-    --card-end: hsl(71 71% 80%);
+    --card-start: rgba(0, 0, 0, 0.8);
+    --card-end: rgba(0, 0, 0, 0.7);
+    --text-light: rgba(255, 255, 255, 0.9);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --input-bg: rgba(255, 255, 255, 0.15);
+    --input-border: rgba(255, 255, 255, 0.3);
+    --detail-bg: rgba(0, 0, 0, 0.6);
 }
 
 /* ============================================================
@@ -16,12 +21,31 @@
 }
 
 body {
-    font-family: Arial, system-ui, sans-serif;
-    background-color: var(--bg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #6c5ce7 100%);
+    background-attachment: fixed;
     margin: 0;
     display: flex;
     justify-content: center;
     padding: 24px;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Fondo dinámico con nubes */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(ellipse 200px 100px at 50% 20%, rgba(255,255,255,0.3) 0%, transparent 70%),
+        radial-gradient(ellipse 300px 150px at 80% 40%, rgba(255,255,255,0.2) 0%, transparent 70%),
+        radial-gradient(ellipse 250px 120px at 20% 60%, rgba(255,255,255,0.25) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 /* ============================================================
@@ -33,55 +57,110 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 /* ============================================================
     Encabezado y subtítulo
    ============================================================ */
 h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin: 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-weight: 700;
 }
 
 .subtitle {
-    margin: 6px 0 18px 0;
-    color: rgba(0, 0, 0, 0.6);
+    margin: 8px 0 24px 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 /* ============================================================
     Formulario de búsqueda de ciudad
    ============================================================ */
 .weatherForm {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 18px;
+    margin-bottom: 24px;
     width: 100%;
     justify-content: center;
 }
 
+.input-group {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .cityInput {
-    padding: 10px 12px;
+    padding: 14px 18px;
     font-size: 1.1rem;
-    border: 2px solid rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
-    width: 60%;
-    min-width: 160px;
+    border: 2px solid var(--input-border);
+    border-radius: 12px;
+    width: 300px;
+    min-width: 200px;
+    background: var(--input-bg);
+    color: white;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.cityInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.cityInput:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* Botón de envío del formulario */
 button[type="submit"] {
-    padding: 10px 16px;
+    padding: 14px 20px;
     font-size: 1.05rem;
     border: none;
-    border-radius: 8px;
-    background-color: var(--primary);
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), #0984e3);
     color: white;
     cursor: pointer;
-    transition: filter 0.2s;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 button[type="submit"]:hover {
-    filter: brightness(0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón de toggle de temperatura */
+.temp-toggle {
+    padding: 14px 18px;
+    font-size: 1.05rem;
+    border: 2px solid var(--input-border);
+    border-radius: 12px;
+    background: var(--input-bg);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    min-width: 60px;
+}
+
+.temp-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* ============================================================
@@ -89,68 +168,226 @@ button[type="submit"]:hover {
    ============================================================ */
 .card {
     background: linear-gradient(135deg, var(--card-start), var(--card-end));
-    border-radius: 12px;
-    box-shadow: 2px 6px 20px rgba(0, 0, 0, 0.12);
-    padding: 28px;
-    margin-top: 12px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 0;
+    margin-top: 20px;
     text-align: center;
     display: flex;
-    min-width: 260px;
-    align-items: center;
+    min-width: 320px;
+    max-width: 600px;
+    width: 100%;
+    align-items: stretch;
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeIn 0.8s ease-out;
 }
 
-/* Título de la tarjeta (nombre de la ciudad) */
-.card h2 {
-    font-size: 1.8rem;
-    margin: 0;
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Panel principal con temperatura */
+.main-panel {
+    padding: 32px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.city-name {
+    font-size: 2.2rem;
+    margin: 0 0 16px 0;
+    color: var(--text-light);
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 /* Temperatura principal */
-.card .temp {
-    font-size: 2.6rem;
-    font-weight: 700;
-}
-
-/* Humedad */
-.card .humidity {
-    font-size: 1.1rem;
-    color: rgba(0, 0, 0, 0.75);
+.temp {
+    font-size: 4rem;
+    font-weight: 800;
+    margin: 16px 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    line-height: 1;
 }
 
 /* Descripción del clima */
-.card .desc {
-    font-size: 1.2rem;
+.desc {
+    font-size: 1.3rem;
     font-style: italic;
     text-transform: capitalize;
+    color: var(--text-secondary);
+    margin: 16px 0 0 0;
+    font-weight: 500;
 }
 
 /* Emoji del clima */
 .weatherEmoji {
-    margin: 6px 0;
-    font-size: 5rem;
+    margin: 20px 0;
+    font-size: 6rem;
     line-height: 1;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.3));
+}
+
+/* Panel secundario con detalles */
+.secondary-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0 0 20px 20px;
+}
+
+.weather-detail {
+    background: var(--detail-bg);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+    transition: background 0.3s ease;
+}
+
+.weather-detail:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.weather-detail:first-child {
+    border-radius: 0 0 0 20px;
+}
+
+.weather-detail:last-child {
+    border-radius: 0 0 20px 0;
+}
+
+.detail-icon {
+    font-size: 2rem;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+}
+
+.detail-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 /* Mensaje de error */
 .errorDisplay {
-    color: #b00020;
+    color: #ff6b6b;
     font-weight: 700;
     font-size: 1.1rem;
+    background: rgba(255, 107, 107, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 107, 107, 0.3);
 }
 
 /* ============================================================
-  git   Responsividad para dispositivos móviles
+    Responsividad para dispositivos móviles
    ============================================================ */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
     .cityInput {
         width: 100%;
+        min-width: auto;
     }
-    .card {
-        padding: 18px;
+    
+    button[type="submit"], .temp-toggle {
+        width: 100%;
     }
+    
+    .secondary-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .temp {
+        font-size: 3.5rem;
+    }
+    
     .weatherEmoji {
-        font-size: 4.2rem;
+        font-size: 5rem;
+    }
+    
+    .card {
+        min-width: auto;
+        margin: 20px 12px;
     }
 }
+
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .main-panel {
+        padding: 24px 20px;
+    }
+    
+    .city-name {
+        font-size: 1.8rem;
+    }
+    
+    .temp {
+        font-size: 3rem;
+    }
+    
+    .weatherEmoji {
+        font-size: 4rem;
+    }
+    
+    .weather-detail {
+        padding: 16px 12px;
+    }
+    
+    .detail-icon {
+        font-size: 1.5rem;
+    }
+    
+    .detail-value {
+        font-size: 1.1rem;
+    }
+    
+    .secondary-panel {
+        grid-template-columns: 1fr;
+    }
+    
+    .weather-detail:first-child,
+    .weather-detail:last-child {
+        border-radius: 0;
+    }
+    
+    .weather-detail:last-child {
+        border-radius: 0 0 20px 20px;
+    }
+}
+
+/* Añadir fuente Inter desde Google Fonts si no está disponible */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
