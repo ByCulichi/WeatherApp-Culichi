@@ -1,33 +1,51 @@
-    <!doctype html>
-    <html lang="en">
-    <head>
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Meta tags para configuración básica y responsividad -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <!-- Título de la página -->
     <title>Weather App</title>
+
+    <!-- Enlace a la hoja de estilos principal -->
     <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+</head>
+<body>
+    <!-- Contenedor principal de la aplicación -->
     <main class="container">
+        <!-- Encabezado de la aplicación -->
         <header>
-        <h1>Weather App</h1>
-        <p class="subtitle">Get current weather by city (OpenWeatherMap)</p>
+            <h1>Weather App</h1>
+            <p class="subtitle">
+                <!-- Breve descripción de la funcionalidad -->
+                Get current weather by city (OpenWeatherMap)
+            </p>
         </header>
 
+        <!-- Formulario para ingresar el nombre de la ciudad -->
         <form class="weatherForm" aria-label="Get weather form">
-        <input
-            class="cityInput"
-            type="text"
-            name="city"
-            placeholder="Enter city (e.g. London)"
-            required
-            aria-label="City name"
-        />
-        <button type="submit">Get Weather</button>
+            <input
+                class="cityInput"
+                type="text"
+                name="city"
+                placeholder="Enter city (e.g. London)"
+                required
+                aria-label="City name"
+            />
+            <button type="submit">
+                Get Weather
+            </button>
         </form>
 
-        <section class="card" aria-live="polite" style="display: none;"></section>
+        <!-- Sección para mostrar la tarjeta con el clima -->
+        <!-- aria-live="polite" permite que lectores de pantalla anuncien cambios -->
+        <section class="card" aria-live="polite" style="display: none;">
+            <!-- El contenido del clima se insertará dinámicamente aquí -->
+        </section>
     </main>
 
+    <!-- Script principal de la aplicación -->
     <script src="script.js"></script>
-    </body>
-    </html>
+</body>
+</html>
