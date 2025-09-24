@@ -25,6 +25,21 @@ body {
 }
 
 /* ============================================================
+    Utilidades de accesibilidad
+   ============================================================ */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ============================================================
     Contenedor principal
    ============================================================ */
 .container {
@@ -141,7 +156,7 @@ button[type="submit"]:hover {
 }
 
 /* ============================================================
-  git   Responsividad para dispositivos móviles
+    Responsividad para dispositivos móviles
    ============================================================ */
 @media (max-width: 480px) {
     .cityInput {

@@ -1,12 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
     <!-- Meta tags para configuración básica y responsividad -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    
+    <!-- SEO y descripción de la aplicación -->
+    <meta name="description" content="Aplicación del clima que muestra información meteorológica actual usando OpenWeatherMap API" />
+    <meta name="keywords" content="clima, weather, temperatura, humedad, OpenWeatherMap" />
+    <meta name="author" content="ByCulichi" />
 
     <!-- Título de la página -->
-    <title>Weather App</title>
+    <title>Weather App - Aplicación del Clima</title>
 
     <!-- Enlace a la hoja de estilos principal -->
     <link rel="stylesheet" href="style.css">
@@ -15,32 +20,38 @@
     <!-- Contenedor principal de la aplicación -->
     <main class="container">
         <!-- Encabezado de la aplicación -->
-        <header>
+        <header role="banner">
             <h1>Weather App</h1>
             <p class="subtitle">
                 <!-- Breve descripción de la funcionalidad -->
-                Get current weather by city (OpenWeatherMap)
+                Obtén el clima actual por ciudad usando OpenWeatherMap
             </p>
         </header>
 
         <!-- Formulario para ingresar el nombre de la ciudad -->
-        <form class="weatherForm" aria-label="Get weather form">
+        <form class="weatherForm" aria-label="Formulario de búsqueda del clima" role="search">
+            <label for="cityInput" class="visually-hidden">Nombre de la ciudad</label>
             <input
+                id="cityInput"
                 class="cityInput"
                 type="text"
                 name="city"
-                placeholder="Enter city (e.g. London)"
+                placeholder="Ingresa una ciudad (ej. London, México, Madrid)"
                 required
-                aria-label="City name"
+                aria-label="Nombre de la ciudad"
+                autocomplete="address-level2"
             />
-            <button type="submit">
-                Get Weather
+            <button type="submit" aria-describedby="search-help">
+                Obtener Clima
             </button>
+            <div id="search-help" class="visually-hidden">
+                Presiona para buscar información del clima de la ciudad ingresada
+            </div>
         </form>
 
         <!-- Sección para mostrar la tarjeta con el clima -->
         <!-- aria-live="polite" permite que lectores de pantalla anuncien cambios -->
-        <section class="card" aria-live="polite" style="display: none;">
+        <section class="card" aria-live="polite" aria-label="Información del clima" style="display: none;">
             <!-- El contenido del clima se insertará dinámicamente aquí -->
         </section>
     </main>
