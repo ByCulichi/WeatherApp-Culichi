@@ -1,56 +1,75 @@
-    :root{
+/* ============================================================
+    Variables globales para colores y estilos base
+   ============================================================ */
+:root {
     --bg: hsl(0 0% 95%);
     --primary: hsl(200 70% 50%);
     --card-start: hsl(200 70% 90%);
     --card-end: hsl(71 71% 80%);
-    }
+}
 
-    *{box-sizing: border-box;}
+/* ============================================================
+    Reset y configuración base
+   ============================================================ */
+* {
+    box-sizing: border-box;
+}
 
-    body{
+body {
     font-family: Arial, system-ui, sans-serif;
     background-color: var(--bg);
     margin: 0;
     display: flex;
     justify-content: center;
     padding: 24px;
-    }
+}
 
-    .container{
+/* ============================================================
+    Contenedor principal
+   ============================================================ */
+.container {
     width: 100%;
     max-width: 760px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    }
+}
 
-    h1{
+/* ============================================================
+    Encabezado y subtítulo
+   ============================================================ */
+h1 {
     font-size: 2rem;
     margin: 0;
-    }
-    .subtitle{
-    margin: 6px 0 18px 0;
-    color: rgba(0,0,0,0.6);
-    }
+}
 
-    .weatherForm{
+.subtitle {
+    margin: 6px 0 18px 0;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* ============================================================
+    Formulario de búsqueda de ciudad
+   ============================================================ */
+.weatherForm {
     display: flex;
     gap: 12px;
     margin-bottom: 18px;
     width: 100%;
     justify-content: center;
-    }
+}
 
-    .cityInput{
+.cityInput {
     padding: 10px 12px;
     font-size: 1.1rem;
-    border: 2px solid rgba(0,0,0,0.12);
+    border: 2px solid rgba(0, 0, 0, 0.12);
     border-radius: 8px;
     width: 60%;
     min-width: 160px;
-    }
+}
 
-    button[type="submit"]{
+/* Botón de envío del formulario */
+button[type="submit"] {
     padding: 10px 16px;
     font-size: 1.05rem;
     border: none;
@@ -58,16 +77,20 @@
     background-color: var(--primary);
     color: white;
     cursor: pointer;
-    }
+    transition: filter 0.2s;
+}
 
-    button[type="submit"]:hover{
+button[type="submit"]:hover {
     filter: brightness(0.95);
-    }
+}
 
-    .card{
+/* ============================================================
+    Tarjeta de información del clima
+   ============================================================ */
+.card {
     background: linear-gradient(135deg, var(--card-start), var(--card-end));
     border-radius: 12px;
-    box-shadow: 2px 6px 20px rgba(0,0,0,0.12);
+    box-shadow: 2px 6px 20px rgba(0, 0, 0, 0.12);
     padding: 28px;
     margin-top: 12px;
     text-align: center;
@@ -76,43 +99,58 @@
     align-items: center;
     flex-direction: column;
     gap: 10px;
-    }
+}
 
-    .card h2{
+/* Título de la tarjeta (nombre de la ciudad) */
+.card h2 {
     font-size: 1.8rem;
     margin: 0;
-    }
+}
 
-    .card .temp{
+/* Temperatura principal */
+.card .temp {
     font-size: 2.6rem;
     font-weight: 700;
-    }
+}
 
-    .card .humidity{
+/* Humedad */
+.card .humidity {
     font-size: 1.1rem;
-    color: rgba(0,0,0,0.75);
-    }
+    color: rgba(0, 0, 0, 0.75);
+}
 
-    .card .desc{
+/* Descripción del clima */
+.card .desc {
     font-size: 1.2rem;
     font-style: italic;
     text-transform: capitalize;
-    }
+}
 
-    .weatherEmoji{
+/* Emoji del clima */
+.weatherEmoji {
     margin: 6px 0;
     font-size: 5rem;
     line-height: 1;
-    }
+}
 
-    .errorDisplay{
+/* Mensaje de error */
+.errorDisplay {
     color: #b00020;
     font-weight: 700;
     font-size: 1.1rem;
-    }
+}
 
-    @media (max-width: 480px){
-    .cityInput{ width: 100%; }
-    .card{ padding: 18px; }
-    .weatherEmoji{ font-size: 4.2rem; }
+/* ============================================================
+  git   Responsividad para dispositivos móviles
+   ============================================================ */
+@media (max-width: 480px) {
+    .cityInput {
+        width: 100%;
     }
+    .card {
+        padding: 18px;
+    }
+    .weatherEmoji {
+        font-size: 4.2rem;
+    }
+}
